@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.card-hover {
+  transition: all 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.coming-soon {
+  position: relative;
+  overflow: hidden;
+}
+.coming-soon::after {
+  content: "Coming Soon";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(45deg, #f59e0b, #ef4444);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: 1rem;
+}
+
+.dropzone-active {
+  border-color: #0ea5e9 !important;
+  background-color: rgba(14, 165, 233, 0.05) !important;
+}
+
+.dark .dropzone-active {
+  background-color: rgba(14, 165, 233, 0.1) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #334155;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #64748b;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Loading spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Tabs */
+.tab-active {
+  background-color: #f1f5f9;
+  color: #0ea5e9;
+  font-weight: 600;
+}
+
+.dark .tab-active {
+  background-color: #1e293b;
+  color: #38bdf8;
+}
+
+/* Content sections */
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Add to your dashboard_style.css */
+textarea {
+  transition: height 0.2s ease;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+#output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Powered Study Solution from Chaos to Clarity</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/dashboard_style.css') }}">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            secondary: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            },
+            dark: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bounce-slow': 'bounce 2s infinite',
+            'spin-slow': 'spin 3s linear infinite'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-dark-800 dark:to-dark-900 min-h-screen p-6 transition-colors duration-300">
+  <div class="max-w-7xl mx-auto">
+    <!-- Theme Toggle and Header -->
+    <div class="flex justify-between items-center mb-6">
+      <button id="themeToggle" class="p-2 rounded-full bg-white dark:bg-dark-700 shadow-md hover:shadow-lg transition">
+        <i class="fas fa-moon text-gray-700 dark:text-yellow-300 hidden dark:inline-block"></i>
+        <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+      </button>
+      
+      <div class="flex items-center gap-4">
+        <button class="p-2 rounded-full bg-white dark:bg-dark-700 shadow-md hover:shadow-lg transition" title="Help">
+          <i class="fas fa-question-circle text-primary-600 dark:text-primary-400"></i>
+        </button>
+        <button class="p-2 rounded-full bg-white dark:bg-dark-700 shadow-md hover:shadow-lg transition" title="Settings">
+          <i class="fas fa-cog text-primary-600 dark:text-primary-400"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <div class="inline-flex items-center justify-center mb-4">
+        <div class="bg-gradient-to-r from-primary-600 to-secondary-600 p-3 rounded-xl shadow-lg hover:shadow-xl transition">
+          <i class="fas fa-book-open text-white text-3xl"></i>
+        </div>
+      </div>
+      <h1 class="text-5xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">AI Powered Study Solution from Chaos to Clarity</h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Your intelligent learning assistant for note extraction, curriculum management, and more.
+      </p>
+    </header>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <!-- Card 1 - Upload Notes -->
+      <div class="bg-white dark:bg-dark-700 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-dark-600 card-hover cursor-pointer group" onclick="showUploadOptions()">
+        <div class="p-6">
+          <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition">
+            <i class="fas fa-file-upload text-primary-600 dark:text-primary-400 text-xl"></i>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Upload Notes</h2>
+          <p class="text-gray-500 dark:text-gray-400">Extract text from typed or handwritten notes.</p>
+        </div>
+        <div class="px-6 py-3 bg-gray-50 dark:bg-dark-600 border-t border-gray-100 dark:border-dark-500">
+          <span class="text-primary-600 dark:text-primary-400 font-medium text-sm">Try it now <i class="fas fa-arrow-right ml-1"></i></span>
+        </div>
+      </div>
+
+      <!-- Card 2 - Coming Soon -->
+      <div class="bg-white dark:bg-dark-700 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-dark-600 coming-soon opacity-90 cursor-not-allowed">
+        <div class="p-6">
+          <div class="w-12 h-12 bg-gray-100 dark:bg-dark-600 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-graduation-cap text-gray-400 text-xl"></i>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-400 mb-2">Upload Curriculum</h2>
+          <p class="text-gray-400">Organize and manage your learning materials.</p>
+        </div>
+        <div class="px-6 py-3 bg-gray-50 dark:bg-dark-600 border-t border-gray-100 dark:border-dark-500">
+          <span class="text-gray-400 font-medium text-sm">Under development</span>
+        </div>
+      </div>
+
+      <!-- Card 3 - Diagram Explanation -->
+      <div class="bg-white dark:bg-dark-700 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-dark-600 card-hover cursor-pointer group" onclick="showDiagramExplanation()">
+        <div class="p-6">
+          <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition">
+            <i class="fas fa-project-diagram text-primary-600 dark:text-primary-400 text-xl"></i>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Diagram Explanation</h2>
+          <p class="text-gray-500 dark:text-gray-400">Get simple explanations for complex diagrams.</p>
+        </div>
+        <div class="px-6 py-3 bg-gray-50 dark:bg-dark-600 border-t border-gray-100 dark:border-dark-500">
+          <span class="text-primary-600 dark:text-primary-400 font-medium text-sm">Try it now <i class="fas fa-arrow-right ml-1"></i></span>
+        </div>
+      </div>
+
+      <!-- Card 4 - Coming Soon -->
+      <div class="bg-white dark:bg-dark-700 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-dark-600 coming-soon opacity-90 cursor-not-allowed">
+        <div class="p-6">
+          <div class="w-12 h-12 bg-gray-100 dark:bg-dark-600 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-brain text-gray-400 text-xl"></i>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-400 mb-2">Aptitude Practice</h2>
+          <p class="text-gray-400">Practice problems with intelligent feedback.</p>
+        </div>
+        <div class="px-6 py-3 bg-gray-50 dark:bg-dark-600 border-t border-gray-100 dark:border-dark-500">
+          <span class="text-gray-400 font-medium text-sm">Under development</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div id="uploadSection" class="hidden max-w-4xl mx-auto bg-white dark:bg-dark-700 rounded-xl shadow-xl overflow-hidden border border-gray-200 dark:border-dark-600 mb-12 transition-all duration-300">
+      <div class="bg-gradient-to-r from-primary-600 to-secondary-600 p-6 text-white">
+        <div class="flex justify-between items-center">
+          <h2 class="text-2xl font-bold flex items-center gap-3">
+            <i class="fas fa-file-upload"></i>
+            <span>Upload Notes</span>
+          </h2>
+          <button onclick="hideUploadOptions()" class="p-2 rounded-full hover:bg-white/10 transition">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <p class="text-primary-100 mt-1">Extract text from your documents</p>
+      </div>
+
+      <div class="p-6">
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+          <button onclick="toggleForm('typed')" id="typedBtn" class="px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition flex items-center justify-center gap-2 flex-1">
+            <i class="fas fa-keyboard"></i>
+            <span>Typed PDF</span>
+          </button>
+          <button onclick="toggleForm('handwritten')" id="handwrittenBtn" class="px-6 py-3 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium rounded-lg hover:bg-primary-200 dark:hover:bg-primary-800/50 transition flex items-center justify-center gap-2 flex-1">
+            <i class="fas fa-pen-fancy"></i>
+            <span>Handwritten PDF</span>
+          </button>
+        </div>
+
+        <form id="uploadForm" class="space-y-6">
+          <div id="dropzone" class="flex items-center justify-center w-full">
+            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 dark:border-dark-500 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-dark-600 hover:bg-gray-100 dark:hover:bg-dark-500 transition">
+              <div class="flex flex-col items-center justify-center pt-5 pb-6 px-4 text-center">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">PDF files only (Max 10MB)</p>
+              </div>
+              <input id="dropzone-file" type="file" name="pdf" accept="application/pdf" required class="hidden" />
+            </label>
+          </div>
+          
+          <!-- File preview section -->
+          <div id="filePreview" class="hidden">
+            <div class="flex items-center justify-between bg-gray-100 dark:bg-dark-600 p-3 rounded-lg">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-file-pdf text-red-500 text-xl"></i>
+                <div>
+                  <p id="fileName" class="font-medium text-gray-800 dark:text-gray-200 truncate max-w-xs"></p>
+                  <p id="fileSize" class="text-xs text-gray-500 dark:text-gray-400"></p>
+                </div>
+              </div>
+              <button type="button" onclick="clearFile()" class="text-gray-500 dark:text-gray-400 hover:text-red-500 transition">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition duration-300 flex items-center justify-center gap-2">
+            <i class="fas fa-magic"></i>
+            <span>Extract Text</span>
+          </button>
+        </form>
+
+        <!-- Content Tabs -->
+        <div id="contentTabs" class="hidden mt-8">
+          <div class="flex border-b border-gray-200 dark:border-dark-600">
+            <button onclick="showTab('extractedText')" class="tab-button py-2 px-4 rounded-t-lg font-medium text-gray-700 dark:text-gray-300 tab-active">
+              <i class="fas fa-file-alt mr-2"></i>Extracted Text
+            </button>
+            <button onclick="showTab('summary')" class="tab-button py-2 px-4 rounded-t-lg font-medium text-gray-700 dark:text-gray-300">
+              <i class="fas fa-file-contract mr-2"></i>Summary
+            </button>
+            <button onclick="showTab('questions')" class="tab-button py-2 px-4 rounded-t-lg font-medium text-gray-700 dark:text-gray-300">
+              <i class="fas fa-question-circle mr-2"></i>Questions
+            </button>
+          </div>
+          
+          <!-- Tab Content -->
+          <div class="mt-2">
+            <!-- Extracted Text Tab -->
+            <div id="extractedText" class="content-section active">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                  <i class="fas fa-file-alt text-primary-600 dark:text-primary-400"></i>
+                  <span>Extracted Content</span>
+                </h3>
+                <div class="flex gap-2">
+                  <button onclick="downloadText('extractedText')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                    <i class="fas fa-download"></i>
+                    <span>Download</span>
+                  </button>
+                  <button onclick="copyToClipboard('extractedText')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                </div>
+              </div>
+              <textarea id="output" class="w-full h-80 p-4 text-sm font-mono border border-gray-300 dark:border-dark-500 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary-400 bg-gray-50 dark:bg-dark-600 dark:text-gray-200" placeholder="Your extracted text will appear here..."></textarea>
+            </div>
+            
+            <!-- Summary Tab -->
+            <div id="summary" class="content-section">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                  <i class="fas fa-file-contract text-primary-600 dark:text-primary-400"></i>
+                  <span>Document Summary</span>
+                </h3>
+                <div class="flex gap-2">
+                  <button onclick="generateSummary()" class="text-sm bg-primary-600 hover:bg-primary-700 text-white px-3 py-1 rounded flex items-center gap-1 transition">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Generate</span>
+                  </button>
+                  <button onclick="downloadText('summary')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                    <i class="fas fa-download"></i>
+                    <span>Download</span>
+                  </button>
+                  <button onclick="copyToClipboard('summary')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                </div>
+              </div>
+              <textarea id="summaryOutput" class="w-full h-80 p-4 text-sm font-mono border border-gray-300 dark:border-dark-500 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary-400 bg-gray-50 dark:bg-dark-600 dark:text-gray-200" placeholder="Document summary will appear here..."></textarea>
+              <div id="summaryProcessing" class="hidden mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 flex items-center gap-3">
+                <i class="fas fa-circle-notch fa-spin text-blue-500 dark:text-blue-400"></i>
+                <span>Generating summary... This may take a moment.</span>
+              </div>
+            </div>
+            
+            <!-- Questions Tab -->
+            <div id="questions" class="content-section">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                  <i class="fas fa-question-circle text-primary-600 dark:text-primary-400"></i>
+                  <span>Important Questions</span>
+                </h3>
+                <div class="flex gap-2">
+                  <button onclick="generateQuestions()" class="text-sm bg-primary-600 hover:bg-primary-700 text-white px-3 py-1 rounded flex items-center gap-1 transition">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Generate</span>
+                  </button>
+                  <button onclick="downloadText('questions')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                    <i class="fas fa-download"></i>
+                    <span>Download</span>
+                  </button>
+                  <button onclick="copyToClipboard('questions')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                  </button>
+                </div>
+              </div>
+              <textarea id="questionsOutput" class="w-full h-80 p-4 text-sm font-mono border border-gray-300 dark:border-dark-500 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary-400 bg-gray-50 dark:bg-dark-600 dark:text-gray-200" placeholder="Important questions will appear here..."></textarea>
+              <div id="questionsProcessing" class="hidden mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 flex items-center gap-3">
+                <i class="fas fa-circle-notch fa-spin text-blue-500 dark:text-blue-400"></i>
+                <span>Generating questions... This may take a moment.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Status Indicators -->
+        <div id="processingIndicator" class="hidden mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 flex items-center gap-3">
+          <i class="fas fa-circle-notch fa-spin text-blue-500 dark:text-blue-400"></i>
+          <span>Processing your document... This may take a moment.</span>
+        </div>
+        
+        <div id="successIndicator" class="hidden mt-4 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 flex items-center gap-3">
+          <i class="fas fa-check-circle"></i>
+          <span>Text extraction completed successfully!</span>
+        </div>
+        
+        <div id="errorIndicator" class="hidden mt-4 p-4 bg-red-50 dark:bg-red-900/30 rounded-lg border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 flex items-center gap-3">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="errorMessage">Error occurred during processing.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagram Explanation Section -->
+    <div id="diagramSection" class="hidden max-w-4xl mx-auto bg-white dark:bg-dark-700 rounded-xl shadow-xl overflow-hidden border border-gray-200 dark:border-dark-600 mb-12 transition-all duration-300">
+      <div class="bg-gradient-to-r from-primary-600 to-secondary-600 p-6 text-white">
+        <div class="flex justify-between items-center">
+          <h2 class="text-2xl font-bold flex items-center gap-3">
+            <i class="fas fa-project-diagram"></i>
+            <span>Diagram Explanation</span>
+          </h2>
+          <button onclick="hideDiagramExplanation()" class="p-2 rounded-full hover:bg-white/10 transition">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <p class="text-primary-100 mt-1">Get simple explanations for complex diagrams</p>
+      </div>
+      
+      <div class="p-6">
+        <form id="diagramForm" class="space-y-6">
+          <div id="diagramDropzone" class="flex items-center justify-center w-full">
+            <label for="diagram-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 dark:border-dark-500 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-dark-600 hover:bg-gray-100 dark:hover:bg-dark-500 transition">
+              <div class="flex flex-col items-center justify-center pt-5 pb-6 px-4 text-center">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">JPG, PNG, or PDF files (Max 10MB)</p>
+              </div>
+              <input id="diagram-file" type="file" name="diagram" accept="image/*,.pdf" required class="hidden" />
+            </label>
+          </div>
+          
+          <!-- File preview section -->
+          <div id="diagramPreview" class="hidden">
+            <div class="flex items-center justify-between bg-gray-100 dark:bg-dark-600 p-3 rounded-lg mb-4">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-file-image text-blue-500 text-xl"></i>
+                <div>
+                  <p id="diagramFileName" class="font-medium text-gray-800 dark:text-gray-200 truncate max-w-xs"></p>
+                  <p id="diagramFileSize" class="text-xs text-gray-500 dark:text-gray-400"></p>
+                </div>
+              </div>
+              <button type="button" onclick="clearDiagramFile()" class="text-gray-500 dark:text-gray-400 hover:text-red-500 transition">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            
+            <!-- Image preview -->
+            <div id="imagePreviewContainer" class="hidden mb-4">
+              <img id="imagePreview" src="#" alt="Preview" class="max-h-64 mx-auto rounded-lg border border-gray-200 dark:border-dark-500">
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition duration-300 flex items-center justify-center gap-2">
+            <i class="fas fa-lightbulb"></i>
+            <span>Explain Diagram</span>
+          </button>
+        </form>
+
+        <!-- Explanation Output -->
+        <div id="explanationOutput" class="hidden mt-8">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
+              <i class="fas fa-comment-alt text-primary-600 dark:text-primary-400"></i>
+              <span>Diagram Explanation</span>
+            </h3>
+            <div class="flex gap-2">
+              <button onclick="downloadText('explanationText')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                <i class="fas fa-download"></i>
+                <span>Download</span>
+              </button>
+              <button onclick="copyToClipboard('explanationText')" class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 flex items-center gap-1 transition">
+                <i class="fas fa-copy"></i>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+          <textarea id="explanationText" class="w-full h-80 p-4 text-sm font-mono border border-gray-300 dark:border-dark-500 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary-400 bg-gray-50 dark:bg-dark-600 dark:text-gray-200" placeholder="Your diagram explanation will appear here..." readonly></textarea>
+        </div>
+        
+        <!-- Status Indicators -->
+        <div id="diagramProcessing" class="hidden mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 flex items-center gap-3">
+          <i class="fas fa-circle-notch fa-spin text-blue-500 dark:text-blue-400"></i>
+          <span>Processing your diagram... This may take a moment.</span>
+        </div>
+        
+        <div id="diagramSuccess" class="hidden mt-4 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 flex items-center gap-3">
+          <i class="fas fa-check-circle"></i>
+          <span>Diagram explanation completed successfully!</span>
+        </div>
+        
+        <div id="diagramError" class="hidden mt-4 p-4 bg-red-50 dark:bg-red-900/30 rounded-lg border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 flex items-center gap-3">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="diagramErrorMessage">Error occurred during processing.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='JS/dashboard_script.js') }}"></script>
+</body>
+</html>
